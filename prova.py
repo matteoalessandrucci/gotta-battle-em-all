@@ -2,13 +2,13 @@ from vgc.datatypes.Objects import PkmTeam
 from vgc.behaviour.BattlePolicies import RandomPlayer, GUIPlayer
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
-
+from RandomAgent import RandomAgent
 from multiprocessing.connection import Client
 
 gen = RandomTeamGenerator()
 team0 = gen.get_team().get_battle_team([0, 1, 2])
 team1 = gen.get_team().get_battle_team([0, 1, 2])
-agent0, agent1 = RandomPlayer(), RandomPlayer()
+agent0, agent1 = RandomAgent(), RandomPlayer()
 address = ('localhost', 6000)
 
 conn = Client(address, authkey='VGC AI'.encode('utf-8'))
