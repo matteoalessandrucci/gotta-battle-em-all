@@ -1,14 +1,14 @@
 from vgc.datatypes.Objects import PkmTeam
-from vgc.behaviour.BattlePolicies import RandomPlayer, GUIPlayer
+from vgc.behaviour.BattlePolicies import RandomPlayer
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
-from RandomAgent import RandomAgent
+from Agents import MinimaxAgent
 from multiprocessing.connection import Client
 
 gen = RandomTeamGenerator()
 team0 = gen.get_team().get_battle_team([0, 1, 2])
 team1 = gen.get_team().get_battle_team([0, 1, 2])
-agent0, agent1 = RandomAgent(), RandomPlayer()
+agent0, agent1 = MinimaxAgent(), RandomPlayer()
 address = ('localhost', 6000)
 
 conn = Client(address, authkey='VGC AI'.encode('utf-8'))
@@ -28,7 +28,9 @@ while battle < n_battles:
         env.render(mode='ux')
     t = False
     battle += 1
-print(env.winner)  # winner id number
+if(env.winner == 0):
+    print("Abbiamo vinto!")
+else: print("Abbiamo perso")  # winner id number
 
 # gen = RandomTeamGenerator()
 # full_team0 = gen.get_team()
