@@ -1,101 +1,150 @@
 from copy import deepcopy
+import math
 from typing import List
-import numpy as np
-from vgc.behaviour.BattlePolicies import BattlePolicy
-from vgc.datatypes.Objects import GameState
-from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
-from vgc.datatypes.Types import PkmStat, PkmType, WeatherCondition
-from vgc.engine.PkmBattleEnv import PkmTeam, PkmBattleEnv
-from utils import N_ACTIONS
+from vgc.behaviour import BattlePolicy
+from vgc.datatypes.Constants import DEFAULT_N_ACTIONS
+from vgc.datatypes.Objects import GameState, PkmTeam
 
-# class RandomAgent(BattlePolicy):
-#     """
-#     Agent that selects actions randomly.
-#     """
-
-#     def __init__(self, switch_probability: float = .15, n_moves: int = 4,
-#                  n_switches: int = 2):
-#         super().__init__()
-#         self.n_actions: int = n_moves + n_switches
-#         self.n_switches = n_switches
-#         self.pi: List[float] = ([(1. - switch_probability) / n_moves] * n_moves) + (
-#                 [switch_probability / n_switches] * n_switches)
-
-#     def get_action(self, gamestate: GameState) -> int:
-#         my_type = gamestate.teams[0].active.type
-#         opponent_type = gamestate.teams[1].active.type
-#         print(PkmType(my_type).name, PkmType(opponent_type).name)
-#         if(TYPE_CHART_MULTIPLIER[opponent_type][my_type] == 2):
-#             move = self.n_actions - self.n_switches + np.random.choice(self.n_switches)
-#             print("superefficacia: ", TYPE_CHART_MULTIPLIER[opponent_type][my_type], " mossa: ", move)
-#             return move 
-#         return np.random.choice(self.n_actions, p=self.pi)
-    
-class Node:
-
-    def __init__(self):
-        self.action = None
-        self.gamestate = None
-        self.parent = None
-        self.depth = 0
-        self.eval = 0.0
-    
-class MinimaxAgent(BattlePolicy):
-
-    def __init__(self, max_depth: int = 4):
-        self.max_depth = max_depth
-
-    def get_action(self, gamestate: PkmBattleEnv) -> int:  # gamestate: PkmBattleEnv
-        root: Node = Node()
-        root.gamestate = gamestate
-        queue: List[Node] = [root]
-        while len(queue) > 0 and queue[0].depth < self.max_depth:
-            parent = queue.pop(0)
-            # expand nodes of current parent
-            for i in range(N_ACTIONS):
-                for j in range(N_ACTIONS):
-                    gamestate = deepcopy(parent.gamestate)
-                    state, _, _, _, _ = gamestate.step([i, j])  # opponent select an invalid switch action
-                    # our fainted increased, skip
-                    if n_fainted(state[0].teams[0]) > n_fainted(parent.gamestate.teams[0]):
-                        continue
-                    # our opponent fainted increased, follow this decision
-                    if n_fainted(state[0].teams[1]) > n_fainted(parent.gamestate.teams[1]):
-                        action = i
-                        while parent != root:
-                            action = parent.action
-                            parent = parent.parent
-                        print(action)
-
-                        return action
-                    # continue tree traversal
-                    node = Node()
-                    node.parent = parent
-                    node.depth = node.parent.depth + 1
-                    node.action = i
-                    node.gamestate = state[0]
-                    queue.append(node)
-        # no possible win outcomes, return arbitrary action
-        if len(queue) == 0:
-            return 0
-        # return action with most potential
-        best_node = max(queue, key=lambda n: game_state_eval(n.gamestate, n.depth))
-        while best_node.parent != root:
-            best_node = best_node.parent
-            print(best_node.action)
-        return best_node.action
-
-def n_fainted(team: PkmTeam):
+def n_fainted(t: PkmTeam):
     fainted = 0
-    fainted += team.active.hp == 0
-    if len(team.party) > 0:
-        fainted += team.party[0].hp == 0
-    if len(team.party) > 1:
-        fainted += team.party[1].hp == 0
+    fainted += t.active.hp == 0
+    if len(t.party) > 0:
+        fainted += t.party[0].hp == 0
+    if len(t.party) > 1:
+        fainted += t.party[1].hp == 0
     return fainted
 
 
-def game_state_eval(state: GameState, depth):
-    mine = state.teams[0].active
-    opp = state.teams[1].active
+def game_state_eval(s: GameState, depth):
+    mine = s.teams[0].active
+    opp = s.teams[1].active
     return mine.hp / mine.max_hp - 3 * opp.hp / opp.max_hp - 0.3 * depth
+
+class MinimaxNode:
+    """
+    Represents a node in the Minimax game tree.
+    """
+    def __init__(self, state, action=None, parent=None, depth=0):
+        self.state = state         # Game state at this node
+        self.action = action       # Action taken to reach this state
+        self.parent = parent       # Parent node
+        self.depth = depth         # Depth of the node in the tree
+        self.children = []         # Child nodes
+        self.eval_value = None     # Evaluation score of this node
+
+class Minimax_Agent(BattlePolicy):
+    def __init__(self, max_depth: int = 3):
+        self.max_depth = max_depth
+
+    def minimax(self, env, enemy_action, depth, alpha, beta, maximizing_player):
+            if depth == 0:
+                return game_state_eval(env, depth), None
+
+            best_action = None
+            if maximizing_player:
+                max_eval = -math.inf
+                for action in range(1, DEFAULT_N_ACTIONS):
+                    g_copy = deepcopy(env)
+                    g_copy.step([action, enemy_action])
+                    eval_value, _ = self.minimax(g_copy, action, depth - 1, alpha, beta, False)
+                    if eval_value > max_eval:
+                        max_eval = eval_value
+                        best_action = action
+                    alpha = max(alpha, eval_value)
+                    if beta <= alpha:
+                        break
+                return max_eval, best_action
+            else:
+                min_eval = math.inf
+                for action in range(DEFAULT_N_ACTIONS):
+                    g_copy = deepcopy(env)
+                    g_copy.step([enemy_action, action])
+                    eval_value, _ = self.minimax(g_copy, action, depth - 1, alpha, beta, True)
+                    if eval_value < min_eval:
+                        min_eval = eval_value
+                        best_action = action
+                    beta = min(beta, eval_value)
+                    if beta <= alpha:
+                        break
+                return min_eval, best_action
+
+    def get_action(self, g) -> int:
+        _, action = self.minimax(g, 0, self.max_depth, -math.inf, math.inf, True)
+        return action
+
+class MinimaxNodes_Agent(BattlePolicy):
+    def __init__(self, max_depth: int = 3):
+        self.max_depth = max_depth
+
+    def minimax(self, node, enemy_action, depth, alpha, beta, maximizing_player):
+        """
+        Minimax algorithm with Alpha-Beta Pruning.
+        :param node: Current MinimaxNode.
+        :param enemy_action: Action of the opponent.
+        :param depth: Current depth in the tree.
+        :param alpha: Best already explored option along the path to the root for the maximizing player.
+        :param beta: Best already explored option along the path to the root for the minimizing player.
+        :param maximizing_player: Boolean indicating whether it's the maximizing player's turn.
+        :return: (evaluation score, best action)
+        """
+        state = node.state
+
+        # Terminal condition: depth limit or end game
+        if depth == 0 :#or state.is_terminal():
+            node.eval_value = game_state_eval(state, depth)
+            return node.eval_value, node.action
+
+        best_action = None
+
+        if maximizing_player:
+            max_eval = -math.inf
+            for action in range(1, DEFAULT_N_ACTIONS):
+                child_state = deepcopy(state)
+                child_state.step([action, enemy_action])
+
+                # Create a child node for this action
+                child_node = MinimaxNode(child_state, action=action, parent=node, depth=node.depth + 1)
+                node.children.append(child_node)
+
+                eval_value, _ = self.minimax(child_node, action, depth - 1, alpha, beta, False)
+
+                if eval_value > max_eval:
+                    max_eval = eval_value
+                    best_action = action
+
+                alpha = max(alpha, eval_value)
+                if beta <= alpha:
+                    break  # Alpha-Beta Pruning
+            node.eval_value = max_eval
+            return max_eval, best_action
+        else:
+            min_eval = math.inf
+            for action in range(DEFAULT_N_ACTIONS):
+                child_state = deepcopy(state)
+                child_state.step([enemy_action, action])
+
+                # Create a child node for this action
+                child_node = MinimaxNode(child_state, action=action, parent=node, depth=node.depth + 1)
+                node.children.append(child_node)
+
+                eval_value, _ = self.minimax(child_node, action, depth - 1, alpha, beta, True)
+
+                if eval_value < min_eval:
+                    min_eval = eval_value
+                    best_action = action
+
+                beta = min(beta, eval_value)
+                if beta <= alpha:
+                    break  # Alpha-Beta Pruning
+            node.eval_value = min_eval
+            return min_eval, best_action
+
+    def get_action(self, game_state) -> int:
+        """
+        Determines the best action to take using Minimax with Alpha-Beta Pruning.
+        :param game_state: Current state of the game.
+        :return: The chosen action.
+        """
+        root_node = MinimaxNode(game_state)
+        _, best_action = self.minimax(root_node, 0, self.max_depth, -math.inf, math.inf, True)
+        return best_action
