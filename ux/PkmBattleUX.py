@@ -1,13 +1,20 @@
 import abc
+print("OK")
 import threading
+print("OK")
 import time
+print("OK")
 from multiprocessing.connection import Listener
+print("OK")
 from typing import List, Tuple
+print("OK")
 
 import arcade
-
+print("ARCADE OK")
 from vgc.datatypes.Types import PkmType, PkmStat
 from vgc.util.Networking import non_blocking_lock
+
+print("VGC OK")
 
 # Set constants for the screen size
 SCREEN_WIDTH = 400
