@@ -22,10 +22,10 @@ class Agent(BattlePolicy):
 
     def get_action(self, game_state: GameState) -> int:
         """Determina la miglior azione da intraprendere usando Monte Carlo e Minimax."""
-        n = 10
+        # n = 10
         possible_actions = list(range(self.n_actions))
         montecarlo_values = {action: self._montecarlo_rollout(game_state, action) for action in possible_actions}
-        best_actions = sorted(possible_actions, key=lambda a: montecarlo_values[a], reverse=True)[:n]
+        best_actions = sorted(possible_actions, key=lambda a: montecarlo_values[a], reverse=True)
 
         best_move, best_score = None, float('-inf')
         for action in best_actions:
