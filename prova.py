@@ -1,6 +1,6 @@
 import logging
 from vgc.datatypes.Objects import PkmTeam
-from vgc.behaviour.BattlePolicies import RandomPlayer, GUIPlayer
+from vgc.behaviour.BattlePolicies import RandomPlayer, GUIPlayer, Minimax, PrunedBFS
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
 from RandomAgent import Agent 
@@ -33,7 +33,7 @@ logging.info("Inizializzazione dell'ambiente...")
 env = PkmBattleEnv((team0, team1),
                    encode=(agent0.requires_encode(), agent1.requires_encode()), debug=True, conn=conn)
 
-n_battles = 30  # numero di battaglie da eseguire
+n_battles = 100  # numero di battaglie da eseguire
 agent0_wins = 0  # Conta le vittorie di agent0
 
 logging.info(f"Inizio delle {n_battles} battaglie...")
@@ -47,9 +47,17 @@ for battle in range(n_battles):
     while not t:  # Continua finché la battaglia non termina
         start_time = time.time()
         a = [agent0.get_action(s[0]), agent1.get_action(s[1])]
+        logging.info(f"Azioni pre-step: agent0={a[0]}, agent1={a[1]}")
+
+        # Verifica che non siano None
+        if a[0] is None or a[1] is None:
+            logging.error(f"Azioni non valide: agent0={a[0]}, agent1={a[1]}")
+            continue  # Salta questo ciclo e prova la prossima azione
+
         end_time = time.time()
 
         logging.info(f"Azioni prese in {end_time - start_time} secondi")
+        print(f"Azioni prese in {end_time - start_time} secondi")
         logging.info(f"Mossa agent0: {a[0]}, Mossa agent1: {a[1]}")
 
         s, _, t, _, _ = env.step(a)
@@ -61,6 +69,7 @@ for battle in range(n_battles):
         agent0_wins += 1
 
     logging.info(f"Battaglia {battle + 1} conclusa. Vincitore: {'Agent0' if env.winner == 0 else 'Agent1'}")
+    print(f"Battaglia {battle + 1} conclusa. Vincitore: {'Agent0' if env.winner == 0 else 'Agent1'}")
     logging.info(f"Stato finale della battaglia: {s}")
     print(f"Vittorie di agent0: {agent0_wins}/{battle + 1}")
 
