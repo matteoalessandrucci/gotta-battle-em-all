@@ -73,7 +73,4 @@ for battle in range(n_battles):
     logging.info(f"Stato finale della battaglia: {s}")
     print(f"Vittorie di agent0: {agent0_wins}/{battle + 1}")
 
-# Calcola la percentuale di vittorie per agent0
-win_percentage = (agent0_wins / n_battles) * 100
-logging.info(f"Percentuale di vittorie di agent0: {win_percentage}%")
-print(f"Percentuale di vittorie di agent0: {win_percentage}%")
+# Calcola la percentuale di vittorie per agent
