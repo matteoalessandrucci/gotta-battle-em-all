@@ -85,6 +85,7 @@ class Agent(BattlePolicy):
     def get_action(self, game_state: GameState) -> int:
         mcts_root = self.run_mcts(game_state, self.mcts_depth)
         best_mcts_actions = sorted(mcts_root.children, key=lambda n: n.visits, reverse=True)
+        print(best_mcts_actions)
         best_actions_with_scores = sorted(
             [
                 (node.action, node.value / node.visits if node.visits > 0 else float('-inf'), node.g) 
@@ -93,8 +94,6 @@ class Agent(BattlePolicy):
             key=lambda x: x[1],
             reverse=True
         )
-
-       
 
         best_action = None
         best_score = -math.inf
