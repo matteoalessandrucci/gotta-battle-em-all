@@ -3,7 +3,7 @@ from vgc.datatypes.Objects import PkmTeam
 from vgc.behaviour.BattlePolicies import RandomPlayer, GUIPlayer, Minimax, PrunedBFS
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
-from RandomAgent import Agent 
+from Agents import Agent 
 from multiprocessing.connection import Client
 import time
 
