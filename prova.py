@@ -25,6 +25,7 @@ logging.info(f"Team0: {team0}")
 logging.info(f"Team1: {team1}")
 
 logging.info("Creazione connessione al server...")
+print("Creazione connessione al server...")
 address = ('localhost', 6000)
 conn = Client(address, authkey='VGC AI'.encode('utf-8'))
 
@@ -37,6 +38,7 @@ n_battles = 100  # numero di battaglie da eseguire
 agent0_wins = 0  # Conta le vittorie di agent0
 
 logging.info(f"Inizio delle {n_battles} battaglie...")
+print("OK")
 
 for battle in range(n_battles):
     logging.info(f"Inizio battaglia {battle + 1}...")
@@ -73,4 +75,7 @@ for battle in range(n_battles):
     logging.info(f"Stato finale della battaglia: {s}")
     print(f"Vittorie di agent0: {agent0_wins}/{battle + 1}")
 
-# Calcola la percentuale di vittorie per agent
+# Calcola la percentuale di vittorie per agent0
+win_percentage = (agent0_wins / n_battles) * 100
+logging.info(f"Percentuale di vittorie di agent0: {win_percentage}%")
+print(f"Percentuale di vittorie di agent0: {win_percentage}%")

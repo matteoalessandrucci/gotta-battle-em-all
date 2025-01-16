@@ -38,11 +38,11 @@ def game_state_eval(game_state: GameState, depth: int) -> float:
     opp = game_state.teams[1]
     
     # Differenza negli HP (con peso aumentato)
-    score = 10 * (ally.active.hp / ally.active.max_hp - opp.active.hp / opp.active.max_hp)
+    score = ally.active.hp / ally.active.max_hp - 3 * opp.active.hp / opp.active.max_hp
     
     # Penalità per stato del Pokémon attivo
-    if ally.active.status != "PkmStatus.NONE":
-        score -= 10
+    # if ally.active.status != "PkmStatus.NONE":
+    #     score -= 5
     # if opp.active.status = "PkmStatus.NONE":
     #     score += 10
 
@@ -50,11 +50,11 @@ def game_state_eval(game_state: GameState, depth: int) -> float:
     score += 15 * (3 - n_fainted(opp) - (3 - n_fainted(ally)))
     
     # Bonus per efficacia del tipo
-    score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 5
+    score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
 
     # Penalità per Pokémon quasi KO
     if ally.active.hp / ally.active.max_hp < 0.2:
-        score -= 5
+        score -= 10
     
     # Penalità per profondità
     return score - 0.1 * depth
@@ -66,7 +66,8 @@ def game_state_eval(game_state: GameState, depth: int) -> float:
 
 
 class Agent(BattlePolicy):
-    def __init__(self, switch_probability: float = 0.15, n_moves: int = 4, n_switches: int = 2, max_depth: int = 2, simulations: int = 6, exploration_constant: float = 1.41, mcts_depth: int = 3):
+    print("Agent class")
+    def __init__(self, switch_probability: float = 0.15, n_moves: int = 4, n_switches: int = 2, max_depth: int = 2, simulations: int = 50, exploration_constant: float = 1.2, mcts_depth: int = 1):
         super().__init__()
         self.n_moves = n_moves
         self.n_switches = n_switches
@@ -83,30 +84,32 @@ class Agent(BattlePolicy):
         return [attack_prob] * self.n_moves + [switch_prob] * self.n_switches
 
     def get_action(self, game_state: GameState) -> int:
+        # Esegui MCTS
         mcts_root = self.run_mcts(game_state, self.mcts_depth)
-        best_mcts_actions = sorted(mcts_root.children, key=lambda n: n.visits, reverse=True)
-        print(best_mcts_actions)
-        best_actions_with_scores = sorted(
-            [
-                (node.action, node.value / node.visits if node.visits > 0 else float('-inf'), node.g) 
-                for node in best_mcts_actions
-            ],
-            key=lambda x: x[1],
+        
+        # Ordina i nodi figli del root in base al punteggio MCTS
+        best_mcts_actions = sorted(
+            mcts_root.children,
+            key=lambda n: n.value / n.visits if n.visits > 0 else float('-inf'),
             reverse=True
         )
 
         best_action = None
         best_score = -math.inf
 
-        for action, score, derived_game_state in best_actions_with_scores:
-            root_node = MinimaxNode(derived_game_state)  
+        for node in best_mcts_actions:
+            # Valutazione tramite Minimax
+            root_node = MinimaxNode(node.g)  # Nodo iniziale per il minimax
             eval_value, _ = self.minimax(root_node, 0, self.max_depth, -math.inf, math.inf, True)
             
+            # Scegli l'azione con il miglior punteggio Minimax
             if eval_value > best_score:
                 best_score = eval_value
-                best_action = action
+                best_action = node.action
+
 
         return best_action
+
 
 
     def minimax(self, node: MinimaxNode, enemy_action: int, depth: int, alpha: float, beta: float, maximizing_player: bool):
@@ -182,11 +185,12 @@ class Agent(BattlePolicy):
             node = max(
                 node.children,
                 key=lambda child: (
-                    child.value / child.visits if child.visits > 0 else float('inf') +
+                    (child.value / child.visits if child.visits > 0 else float('inf')) +
                     self.exploration_constant * np.sqrt(np.log(node.visits + 1) / (child.visits + 1))
                 )
             )
         return node
+
 
     def expand(self, node: MCTSNode, depth: int) -> MCTSNode:
         if not node.children or node.g.turn < depth:  
