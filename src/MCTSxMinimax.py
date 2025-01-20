@@ -1,11 +1,15 @@
 from typing import List
+import copy
+from copy import deepcopy
 import numpy as np
+import os
+import sys
+sys.path.append(os.path.join(sys.path[0], '..'))
+
 from vgc.behaviour.BattlePolicies import BattlePolicy
 from vgc.datatypes.Objects import GameState
 from vgc.datatypes.Types import PkmType
 from vgc.engine.PkmBattleEnv import PkmTeam, PkmBattleEnv
-import copy
-from copy import deepcopy
 
 import math
 from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER

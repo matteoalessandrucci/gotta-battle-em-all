@@ -1,6 +1,10 @@
 from copy import deepcopy
 import math
 from typing import List
+import sys
+import os
+sys.path.append(os.path.join(sys.path[0], '..'))
+
 from vgc.behaviour import BattlePolicy
 from vgc.datatypes.Constants import DEFAULT_N_ACTIONS
 from vgc.datatypes.Objects import GameState, PkmTeam

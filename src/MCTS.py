@@ -1,12 +1,16 @@
 from typing import List
 import numpy as np
+from collections import namedtuple
+from copy import deepcopy
+import os
+import sys
+sys.path.append(os.path.join(sys.path[0], '..'))
+
 from vgc.behaviour.BattlePolicies import BattlePolicy, BFSNode
 from vgc.datatypes.Objects import GameState
 from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
 from vgc.datatypes.Types import PkmStat, PkmType, WeatherCondition
-from collections import namedtuple
 from vgc.engine.PkmBattleEnv import PkmTeam
-from copy import deepcopy
 
 
 class RandomAgent(BattlePolicy):

@@ -1,15 +1,18 @@
 import os
+import sys
 import time
 from math import ceil
 from datetime import datetime
 from multiprocessing.connection import Client
+from Minimax import Minimax_Agent
+from MCTSxMinimax import MCTSxMinimax
+from MCTS import MonteCarloAgent
+sys.path.append(os.path.join(sys.path[0], '..'))
+
 from vgc.datatypes.Objects import PkmTeam
 from vgc.behaviour.BattlePolicies import RandomPlayer, Minimax
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
-from Minimax import Minimax_Agent
-from MCTSxMinimax import MCTSxMinimax
-from MCTS import MonteCarloAgent
 
 class BattleSimulator:
     def __init__(self, use_ux=True, n_battles=3, batch_folder=None, use_mcts=False, use_mcts_minimax=False):
