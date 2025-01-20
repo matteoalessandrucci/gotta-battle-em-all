@@ -1,54 +1,40 @@
-# Imposta il target git edefinito
+# Imposta il target predefinito
 .DEFAULT_GOAL := run-all
 
 # Obiettivi principali
-.PHONY: run-minimax run-ux-minimax run-tests-minimax run-tests-mcts run-tests-mctsxminimax clean run-mcts run-ux-mcts run-mctsxminimax run-ux-mctsxminimax
+.PHONY: run-minimax run-mcts run-mctsxminimax run-ux-minimax run-ux-mcts run-ux-mctsxminimax clean
 
-# Numero di battaglie (modificabile)
-NUM_BATTLES := 5
-BATCH_RUNS := 10
+# Variabile per l'agente (0=Minimax, 1=MCTS, 2=MCTSxMinimax)
+minimax := 0
+mcts := 1
+mctsxminimax := 2
 
-# Target per avviare solo main.py senza UX
+# Target per avviare solo main.py senza UX con un agente specifico
 run-minimax:
-	@cd .. && python3 gotta-battle-em-all/src/main.py --n-battles $(NUM_BATTLES)
+	@cd .. && python3 gotta-battle-em-all/src/main.py $(minimax)
 
-# Target per avviare sia PkmBattleUX.py (in background) che main.py con UX
+run-mcts:
+	@cd .. && python3 gotta-battle-em-all/src/main.py $(mcts)
+
+run-mctsxminimax:
+	@cd .. && python3 gotta-battle-em-all/src/main.py $(mctsxminimax)
+
+# Target per avviare sia PkmBattleUX.py (in background) che main.py con UX e un agente specifico
+#Bisogna settare nel file main.py il flag ux a True
 run-ux-minimax:
 	@cd .. && python3 gotta-battle-em-all/ux/PkmBattleUX.py & \
 	sleep 5 && \
-	python3 src/main.py --use-ux --n-battles $(NUM_BATTLES)
+	python3 src/main.py $(minimax)
 
-# Target per eseguire un batch di test con Minimax
-run-tests-minimax:
-	@cd .. && python3 gotta-battle-em-all/src/main.py --n-battles $(NUM_BATTLES) --test-batch --batch-runs $(BATCH_RUNS)
-
-# Target per avviare solo main.py con MCTS
-run-mcts:
-	@cd .. && python3 gotta-battle-em-all/src/main.py --n-battles $(NUM_BATTLES) --use-mcts
-
-# Target per eseguire un batch di test con MCTS
-run-tests-mcts:
-	@cd .. && python3 gotta-battle-em-all/src/main.py --n-battles $(NUM_BATTLES) --test-batch --batch-runs $(BATCH_RUNS) --use-mcts
-
-# Target per avviare sia PkmBattleUX.py che main.py con UX e MCTS
 run-ux-mcts:
 	@cd .. && python3 gotta-battle-em-all/ux/PkmBattleUX.py & \
 	sleep 5 && \
-	python3 src/main.py --use-ux --use-mcts --n-battles $(NUM_BATTLES)
+	python3 src/main.py $(mcts)
 
-# Target per avviare solo main.py con MCTSxMinimax
-run-mctsxminimax:
-	@cd .. && python3 gotta-battle-em-all/src/main.py --n-battles $(NUM_BATTLES) --use-mcts-minimax
-
-# Target per eseguire un batch di test con MCTSxMinimax
-run-tests-mctsxminimax:
-	@cd .. && python3 gotta-battle-em-all/src/main.py --n-battles $(NUM_BATTLES) --test-batch --batch-runs $(BATCH_RUNS) --use-mcts-minimax
-
-# Target per avviare sia PkmBattleUX.py che main.py con UX e MCTSxMinimax
 run-ux-mctsxminimax:
 	@cd .. && python3 gotta-battle-em-all/ux/PkmBattleUX.py & \
 	sleep 5 && \
-	python3 src/main.py --use-ux --use-mcts-minimax --n-battles $(NUM_BATTLES)
+	python3 src/main.py $(mctsxminimax)
 
 # Target per pulire i file di log
 clean:
