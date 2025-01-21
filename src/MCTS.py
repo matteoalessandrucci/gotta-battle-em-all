@@ -4,14 +4,11 @@ from collections import namedtuple
 from copy import deepcopy
 import os
 import sys
+from utils import MCTSNode, game_state_eval
 
 sys.path.append(os.path.join(sys.path[0], ".."))
 
-from vgc.behaviour.BattlePolicies import BattlePolicy, BFSNode
-from vgc.datatypes.Objects import GameState
-from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
-from vgc.datatypes.Types import PkmStat, PkmType, WeatherCondition
-from vgc.engine.PkmBattleEnv import PkmTeam
+from vgc.behaviour.BattlePolicies import BattlePolicy
 
 
 class MonteCarloAgent(BattlePolicy):
@@ -110,29 +107,3 @@ class MonteCarloAgent(BattlePolicy):
             node.visits += 1
             node.value += reward
             node = node.parent
-
-
-class MCTSNode:
-    def __init__(self, g=None, parent=None, action=None):
-        self.g = g  # GameState
-        self.parent = parent  # Parent node
-        self.children = []  # Child nodes
-        self.action = action  # Action that led to this node
-        self.visits = 0  # Number of visits
-        self.value = 0.0  # Cumulative reward
-
-
-def n_fainted(team: PkmTeam) -> int:
-    return sum(pkm.hp == 0 for pkm in [team.active] + team.party[:2])
-
-
-def game_state_eval(g: GameState, depth: int) -> float:
-    my_active = g.teams[0].active
-    opp_active = g.teams[1].active
-
-    # Components of evaluation:
-    hp_difference = my_active.hp / my_active.max_hp - opp_active.hp / opp_active.max_hp
-    fainted_difference = n_fainted(g.teams[0]) - n_fainted(g.teams[1])
-
-    # Weighted reward combining components
-    return 10 * fainted_difference + 5 * hp_difference - 0.3 * depth

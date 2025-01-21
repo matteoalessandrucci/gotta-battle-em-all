@@ -3,39 +3,61 @@ import math
 from typing import List
 import sys
 import os
+from utils import MinimaxNode, evaluate_game_state
 
 sys.path.append(os.path.join(sys.path[0], ".."))
-
 from vgc.behaviour import BattlePolicy
 from vgc.datatypes.Constants import DEFAULT_N_ACTIONS
 from vgc.datatypes.Objects import GameState, PkmTeam
+from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
 
 
-def game_state_eval(s: GameState, depth):
-    mine = s.teams[0].active
-    opp = s.teams[1].active
-    return mine.hp / mine.max_hp - 3 * opp.hp / opp.max_hp - 0.3 * depth
 
+# class Minimax_Agent(BattlePolicy):
+#     def __init__(self, max_depth: int = 3): #era 2
+#         self.max_depth = max_depth
 
-class MinimaxNode:
-    """
-    Represents a node in the Minimax game tree.
-    """
+#     def minimax(self, env, enemy_action, depth, alpha, beta, maximizing_player):
+#             if depth == 0:
+#                 return game_state_eval(env, depth), None
 
-    def __init__(self, state, action=None, parent=None, depth=0):
-        self.state = state  # Game state at this node
-        self.action = action  # Action taken to reach this state
-        self.parent = parent  # Parent node
-        self.depth = depth  # Depth of the node in the tree
-        self.children = []  # Child nodes
-        self.eval_value = None  # Evaluation score of this node
+#             best_action = None
+#             if maximizing_player:
+#                 max_eval = -math.inf
+#                 for action in range(1, DEFAULT_N_ACTIONS):
+#                     g_copy = deepcopy(env)
+#                     g_copy.step([action, enemy_action])
+#                     eval_value, _ = self.minimax(g_copy, action, depth - 1, alpha, beta, False)
+#                     if eval_value > max_eval:
+#                         max_eval = eval_value
+#                         best_action = action
+#                     alpha = max(alpha, eval_value)
+#                     if beta <= alpha:
+#                         break
+#                 return max_eval, best_action
+#             else:
+#                 min_eval = math.inf
+#                 for action in range(DEFAULT_N_ACTIONS):
+#                     g_copy = deepcopy(env)
+#                     g_copy.step([enemy_action, action])
+#                     eval_value, _ = self.minimax(g_copy, action, depth - 1, alpha, beta, True)
+#                     if eval_value < min_eval:
+#                         min_eval = eval_value
+#                         best_action = action
+#                     beta = min(beta, eval_value)
+#                     if beta <= alpha:
+#                         break
+#                 return min_eval, best_action
 
+#     def get_action(self, g) -> int:
+#         _, action = self.minimax(g, 0, self.max_depth, -math.inf, math.inf, True)
+#         return action
 
 class MinimaxNodes_Agent(BattlePolicy):
-    def __init__(self, max_depth: int = 3):
+    def __init__(self, max_depth: int = 5):
         self.max_depth = max_depth
 
-    def minimax(self, node, enemy_action, depth, alpha, beta, maximizing_player):
+    def minimax(self, node:MinimaxNode, enemy_action, depth, alpha, beta, maximizing_player):
         """
         Minimax algorithm with Alpha-Beta Pruning.
         :param node: Current MinimaxNode.
@@ -49,8 +71,8 @@ class MinimaxNodes_Agent(BattlePolicy):
         state = node.state
 
         # Terminal condition: depth limit or end game
-        if depth == 0:  # or state.is_terminal():
-            node.eval_value = game_state_eval(state, depth)
+        if depth == 0 or self._is_terminal(state):
+            node.eval_value = evaluate_game_state(state)
             return node.eval_value, node.action
 
         best_action = None
@@ -117,3 +139,12 @@ class MinimaxNodes_Agent(BattlePolicy):
             root_node, 0, self.max_depth, -math.inf, math.inf, True
         )
         return best_action
+    
+    def _is_terminal(self, game_state: GameState) -> bool:
+        return all(
+            pkm.hp <= 0
+            for pkm in game_state.teams[0].party + [game_state.teams[0].active]
+        ) or all(
+            pkm.hp <= 0
+            for pkm in game_state.teams[1].party + [game_state.teams[1].active]
+        )

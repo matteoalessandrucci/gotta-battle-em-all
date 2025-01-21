@@ -5,64 +5,14 @@ import numpy as np
 import os
 import sys
 import math
+from utils import *
 
 sys.path.append(os.path.join(sys.path[0], ".."))
 
 from vgc.behaviour.BattlePolicies import BattlePolicy
 from vgc.datatypes.Objects import GameState
-from vgc.datatypes.Types import PkmType
-from vgc.engine.PkmBattleEnv import PkmTeam, PkmBattleEnv
 
 
-from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
-
-
-class MinimaxNode:
-    def __init__(
-        self, state: GameState, action: int = None, parent=None, depth: int = 0
-    ):
-        self.state = state
-        self.action = action
-        self.parent = parent
-        self.depth = depth
-        self.eval_value = None
-        self.children = []
-
-
-class MCTSNode:
-    def __init__(self, g=None, parent=None, action=None):
-        self.g = g  # GameState
-        self.parent = parent  # Parent node
-        self.children = []  # Child nodes
-        self.action = action  # Action that led to this node
-        self.visits = 0  # Number of visits
-        self.value = 0.0  # Cumulative reward
-
-
-def n_fainted(team: PkmTeam) -> int:
-    return sum(pkm.hp == 0 for pkm in [team.active] + team.party[:2])
-
-
-def game_state_eval(game_state: GameState, depth: int) -> float:
-    """Valuta lo stato attuale del gioco."""
-    ally = game_state.teams[0]
-    opp = game_state.teams[1]
-
-    # Differenza negli HP (con peso aumentato)
-    score = ally.active.hp / ally.active.max_hp - 3 * opp.active.hp / opp.active.max_hp
-
-    # Differenza nei Pokémon fainted (con peso aumentato)
-    score += 15 * (3 - n_fainted(opp) - (3 - n_fainted(ally)))
-
-    # Bonus per efficacia del tipo
-    score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
-
-    # Penalità per Pokémon quasi KO
-    if ally.active.hp / ally.active.max_hp < 0.2:
-        score -= 10
-
-    # Penalità per profondità
-    return score - 0.1 * depth
 
 
 # cambia mcts_depth =2  e simulations=700
@@ -132,7 +82,7 @@ class MCTSxMinimax(BattlePolicy):
     ):
         state = node.state
         if depth == 0 or self._is_terminal(state):
-            node.eval_value = self._evaluate_gamestate(state)
+            node.eval_value = evaluate_game_state(state)
             return node.eval_value, node.action
 
         best_action = None
@@ -182,19 +132,6 @@ class MCTSxMinimax(BattlePolicy):
             node.eval_value = min_eval
             return min_eval, best_action
 
-    def _evaluate_gamestate(self, game_state: GameState) -> float:
-        ally = game_state.teams[0]
-        opp = game_state.teams[1]
-        score = sum(pkm.hp for pkm in ally.party + [ally.active]) - sum(
-            pkm.hp for pkm in opp.party + [opp.active]
-        )
-        score += 100 * (len(ally.party) - len(opp.party))
-        score += 50 * (
-            len([pkm for pkm in opp.party if pkm.hp <= 0])
-            - len([pkm for pkm in ally.party if pkm.hp <= 0])
-        )
-        score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
-        return score
 
     def _is_terminal(self, game_state: GameState) -> bool:
         return all(
