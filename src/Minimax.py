@@ -3,10 +3,10 @@ import math
 from typing import List
 import sys
 import os
+from utils import MinimaxNode, evaluate_game_state
 from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
 
 sys.path.append(os.path.join(sys.path[0], ".."))
-
 from vgc.behaviour import BattlePolicy
 from vgc.datatypes.Constants import DEFAULT_N_ACTIONS
 from vgc.datatypes.Objects import GameState, PkmTeam
@@ -30,10 +30,10 @@ class MinimaxNode:
 
 
 class MinimaxNodes_Agent(BattlePolicy):
-    def __init__(self, max_depth: int = 3):
+    def __init__(self, max_depth: int = 5):
         self.max_depth = max_depth
 
-    def minimax(self, node, enemy_action, depth, alpha, beta, maximizing_player):
+    def minimax(self, node:MinimaxNode, enemy_action, depth, alpha, beta, maximizing_player):
         """
         Minimax algorithm with Alpha-Beta Pruning.
         :param node: Current MinimaxNode.
@@ -129,3 +129,12 @@ class MinimaxNodes_Agent(BattlePolicy):
         )
         score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
         return score
+    
+    def _is_terminal(self, game_state: GameState) -> bool:
+        return all(
+            pkm.hp <= 0
+            for pkm in game_state.teams[0].party + [game_state.teams[0].active]
+        ) or all(
+            pkm.hp <= 0
+            for pkm in game_state.teams[1].party + [game_state.teams[1].active]
+        )

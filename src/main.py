@@ -242,6 +242,7 @@ if __name__ == "__main__":
 
         simulator.log_to_file("".join(log), filename="test_batch_log_stats")
         print("Batch testing completed. Log saved.")
+        print("".join(log))
     else:
         # If --test-batch is not provided, a single simulation is executed:
         simulator = BattleSimulator(

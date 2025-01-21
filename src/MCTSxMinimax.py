@@ -5,6 +5,7 @@ import numpy as np
 import os
 import sys
 import math
+from utils import *
 
 sys.path.append(os.path.join(sys.path[0], ".."))
 
@@ -110,7 +111,7 @@ class MCTSxMinimax(BattlePolicy):
     ):
         state = node.state
         if depth == 0 or self._is_terminal(state):
-            node.eval_value = self._evaluate_gamestate(state)
+            node.eval_value = evaluate_game_state(state)
             return node.eval_value, node.action
 
         best_action = None
