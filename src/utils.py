@@ -35,35 +35,35 @@ def n_fainted(team: PkmTeam) -> int:
 
 def game_state_eval(game_state: GameState, depth: int) -> float:
     """Valuta lo stato attuale del gioco."""
-    ally = game_state.teams[0]
+    agent = game_state.teams[0]
     opp = game_state.teams[1]
 
     # Difference between HP (weighted)
-    score = ally.active.hp / ally.active.max_hp - 3 * opp.active.hp / opp.active.max_hp
+    score = agent.active.hp / agent.active.max_hp - 3 * opp.active.hp / opp.active.max_hp
 
     # Difference between fainted Pokèmon (weighted)
-    score += 15 * (3 - n_fainted(opp) - (3 - n_fainted(ally)))
+    score += 15 * (3 - n_fainted(opp) - (3 - n_fainted(agent)))
 
     # type effictiveness bonus 
-    score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
+    score += TYPE_CHART_MULTIPLIER[agent.active.type][opp.active.type] * 10
 
     # Almost KO pokemon penalty
-    if ally.active.hp / ally.active.max_hp < 0.2:
+    if agent.active.hp / agent.active.max_hp < 0.2:
         score -= 10
 
     # Depth penalty for the node
     return score - 0.1 * depth
 
 def evaluate_game_state(game_state: GameState) -> float:
-        ally = game_state.teams[0]
+        agent = game_state.teams[0]
         opp = game_state.teams[1]
-        score = sum(pkm.hp for pkm in ally.party + [ally.active]) - sum(
+        score = sum(pkm.hp for pkm in agent.party + [agent.active]) - sum(
             pkm.hp for pkm in opp.party + [opp.active]
         )
-        score += 100 * (len(ally.party) - len(opp.party))
+        score += 100 * (len(agent.party) - len(opp.party))
         score += 50 * (
             len([pkm for pkm in opp.party if pkm.hp <= 0])
-            - len([pkm for pkm in ally.party if pkm.hp <= 0])
+            - len([pkm for pkm in agent.party if pkm.hp <= 0])
         )
-        score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
+        score += TYPE_CHART_MULTIPLIER[agent.active.type][opp.active.type] * 10
         return score
