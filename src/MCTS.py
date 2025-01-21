@@ -9,6 +9,7 @@ from utils import MCTSNode, game_state_eval
 sys.path.append(os.path.join(sys.path[0], ".."))
 
 from vgc.behaviour.BattlePolicies import BattlePolicy
+from vgc.datatypes.Objects import GameState, PkmTeam
 
 class MCTSNode:
     def __init__(self, g=None, parent=None, action=None):
