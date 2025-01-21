@@ -1,0 +1,36 @@
+Starting 5 battles
+Battle 1, Turn 1: Step time = 0.2654 seconds
+Battle 1, Turn 2: Step time = 0.2591 seconds
+Battle 1, Turn 3: Step time = 0.1588 seconds
+Battle 1, Turn 4: Step time = 0.2797 seconds
+Battle 1, Turn 5: Step time = 0.2245 seconds
+Battle 1, Turn 6: Step time = 0.4477 seconds
+Battle 1 ended in 6 turns
+Battle 2, Turn 1: Step time = 0.5381 seconds
+Battle 2, Turn 2: Step time = 0.6287 seconds
+Battle 2, Turn 3: Step time = 0.3510 seconds
+Battle 2, Turn 4: Step time = 0.1979 seconds
+Battle 2, Turn 5: Step time = 0.3779 seconds
+Battle 2, Turn 6: Step time = 0.2107 seconds
+Battle 2, Turn 7: Step time = 0.2145 seconds
+Battle 2, Turn 8: Step time = 0.1832 seconds
+Battle 2 ended in 8 turns
+Battle 3, Turn 1: Step time = 0.2282 seconds
+Battle 3, Turn 2: Step time = 0.2217 seconds
+Battle 3, Turn 3: Step time = 0.1999 seconds
+Battle 3, Turn 4: Step time = 0.2730 seconds
+Battle 3, Turn 5: Step time = 0.1688 seconds
+Battle 3, Turn 6: Step time = 0.2603 seconds
+Battle 3, Turn 7: Step time = 0.2171 seconds
+Battle 3, Turn 8: Step time = 0.1780 seconds
+Battle 3 ended in 8 turns
+
+Final Results:
+Team 0 Wins: 0
+Team 1 Wins: 3
+Winner Team 1!
+Win Rate (Team 0): 0.00%
+Win Rate (Team 1): 100.00%
+Total Battles: 3
+Total Turns: 22
+Average Turns per Battle: 7.33
