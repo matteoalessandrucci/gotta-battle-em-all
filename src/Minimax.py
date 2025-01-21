@@ -130,11 +130,3 @@ class MinimaxNodes_Agent(BattlePolicy):
         score += TYPE_CHART_MULTIPLIER[ally.active.type][opp.active.type] * 10
         return score
     
-    def _is_terminal(self, game_state: GameState) -> bool:
-        return all(
-            pkm.hp <= 0
-            for pkm in game_state.teams[0].party + [game_state.teams[0].active]
-        ) or all(
-            pkm.hp <= 0
-            for pkm in game_state.teams[1].party + [game_state.teams[1].active]
-        )
