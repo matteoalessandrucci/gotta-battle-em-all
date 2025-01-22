@@ -1,0 +1,44 @@
+Using Minimax Agent
+Starting 5 battles
+Battle 1, Turn 1: Step time = 2.0567 seconds
+Battle 1, Turn 2: Step time = 3.3851 seconds
+Battle 1, Turn 3: Step time = 1.7049 seconds
+Battle 1, Turn 4: Step time = 1.4699 seconds
+Battle 1, Turn 5: Step time = 3.3784 seconds
+Battle 1 ended in 5 turns
+Battle 2, Turn 1: Step time = 8.9327 seconds
+Battle 2, Turn 2: Step time = 10.8100 seconds
+Battle 2, Turn 3: Step time = 2.0865 seconds
+Battle 2 ended in 3 turns
+Battle 3, Turn 1: Step time = 4.9996 seconds
+Battle 3, Turn 2: Step time = 5.5325 seconds
+Battle 3, Turn 3: Step time = 6.3330 seconds
+Battle 3, Turn 4: Step time = 4.0282 seconds
+Battle 3, Turn 5: Step time = 5.9539 seconds
+Battle 3, Turn 6: Step time = 2.6155 seconds
+Battle 3 ended in 6 turns
+Battle 4, Turn 1: Step time = 8.6086 seconds
+Battle 4, Turn 2: Step time = 2.8921 seconds
+Battle 4, Turn 3: Step time = 1.9579 seconds
+Battle 4, Turn 4: Step time = 2.5043 seconds
+Battle 4, Turn 5: Step time = 1.5415 seconds
+Battle 4, Turn 6: Step time = 1.3587 seconds
+Battle 4 ended in 6 turns
+Battle 5, Turn 1: Step time = 5.5740 seconds
+Battle 5, Turn 2: Step time = 5.3689 seconds
+Battle 5, Turn 3: Step time = 8.2240 seconds
+Battle 5, Turn 4: Step time = 7.5025 seconds
+Battle 5, Turn 5: Step time = 4.5742 seconds
+Battle 5, Turn 6: Step time = 4.9087 seconds
+Battle 5, Turn 7: Step time = 3.4377 seconds
+Battle 5 ended in 7 turns
+
+Final Results:
+Team 0 Wins: 3
+Team 1 Wins: 2
+Winner Team 0!
+Win Rate (Team 0): 60.00%
+Win Rate (Team 1): 40.00%
+Total Battles: 5
+Total Turns: 27
+Average Turns per Battle: 5.40

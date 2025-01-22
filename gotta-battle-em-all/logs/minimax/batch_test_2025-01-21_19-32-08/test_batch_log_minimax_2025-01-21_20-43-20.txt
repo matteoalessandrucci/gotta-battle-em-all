@@ -1,0 +1,53 @@
+Using Minimax Agent
+Starting 5 battles
+Battle 1, Turn 1: Step time = 2.7272 seconds
+Battle 1, Turn 2: Step time = 2.3188 seconds
+Battle 1, Turn 3: Step time = 2.6092 seconds
+Battle 1, Turn 4: Step time = 2.3281 seconds
+Battle 1, Turn 5: Step time = 1.8399 seconds
+Battle 1, Turn 6: Step time = 2.3593 seconds
+Battle 1, Turn 7: Step time = 1.0658 seconds
+Battle 1, Turn 8: Step time = 3.1537 seconds
+Battle 1, Turn 9: Step time = 2.6610 seconds
+Battle 1, Turn 10: Step time = 5.2344 seconds
+Battle 1, Turn 11: Step time = 2.8163 seconds
+Battle 1, Turn 12: Step time = 1.7805 seconds
+Battle 1 ended in 12 turns
+Battle 2, Turn 1: Step time = 2.6389 seconds
+Battle 2, Turn 2: Step time = 4.8432 seconds
+Battle 2, Turn 3: Step time = 6.6336 seconds
+Battle 2, Turn 4: Step time = 3.8720 seconds
+Battle 2, Turn 5: Step time = 5.6076 seconds
+Battle 2, Turn 6: Step time = 3.4879 seconds
+Battle 2, Turn 7: Step time = 2.3425 seconds
+Battle 2, Turn 8: Step time = 2.5419 seconds
+Battle 2 ended in 8 turns
+Battle 3, Turn 1: Step time = 2.6597 seconds
+Battle 3, Turn 2: Step time = 2.4200 seconds
+Battle 3, Turn 3: Step time = 2.9339 seconds
+Battle 3, Turn 4: Step time = 2.9492 seconds
+Battle 3, Turn 5: Step time = 3.3191 seconds
+Battle 3, Turn 6: Step time = 2.2517 seconds
+Battle 3, Turn 7: Step time = 2.1174 seconds
+Battle 3, Turn 8: Step time = 1.2202 seconds
+Battle 3 ended in 8 turns
+Battle 4, Turn 1: Step time = 3.3924 seconds
+Battle 4, Turn 2: Step time = 3.7231 seconds
+Battle 4, Turn 3: Step time = 2.3107 seconds
+Battle 4, Turn 4: Step time = 2.0563 seconds
+Battle 4, Turn 5: Step time = 3.5817 seconds
+Battle 4, Turn 6: Step time = 3.0654 seconds
+Battle 4, Turn 7: Step time = 3.7322 seconds
+Battle 4, Turn 8: Step time = 2.2697 seconds
+Battle 4, Turn 9: Step time = 2.5353 seconds
+Battle 4 ended in 9 turns
+
+Final Results:
+Team 0 Wins: 3
+Team 1 Wins: 1
+Winner Team 0!
+Win Rate (Team 0): 75.00%
+Win Rate (Team 1): 25.00%
+Total Battles: 4
+Total Turns: 37
+Average Turns per Battle: 9.25

@@ -1,0 +1,54 @@
+Using Minimax Agent
+Starting 5 battles
+Battle 1, Turn 1: Step time = 1.1103 seconds
+Battle 1, Turn 2: Step time = 1.4963 seconds
+Battle 1, Turn 3: Step time = 1.8370 seconds
+Battle 1, Turn 4: Step time = 2.4384 seconds
+Battle 1, Turn 5: Step time = 2.4647 seconds
+Battle 1, Turn 6: Step time = 3.3307 seconds
+Battle 1 ended in 6 turns
+Battle 2, Turn 1: Step time = 5.0052 seconds
+Battle 2, Turn 2: Step time = 3.1991 seconds
+Battle 2, Turn 3: Step time = 2.5672 seconds
+Battle 2, Turn 4: Step time = 2.3420 seconds
+Battle 2, Turn 5: Step time = 1.8724 seconds
+Battle 2, Turn 6: Step time = 3.5197 seconds
+Battle 2, Turn 7: Step time = 4.4569 seconds
+Battle 2, Turn 8: Step time = 1.9367 seconds
+Battle 2 ended in 8 turns
+Battle 3, Turn 1: Step time = 5.3912 seconds
+Battle 3, Turn 2: Step time = 7.5428 seconds
+Battle 3, Turn 3: Step time = 6.5656 seconds
+Battle 3, Turn 4: Step time = 8.0661 seconds
+Battle 3, Turn 5: Step time = 6.6618 seconds
+Battle 3, Turn 6: Step time = 3.2851 seconds
+Battle 3, Turn 7: Step time = 1.9549 seconds
+Battle 3, Turn 8: Step time = 3.2395 seconds
+Battle 3, Turn 9: Step time = 5.0390 seconds
+Battle 3 ended in 9 turns
+Battle 4, Turn 1: Step time = 7.9911 seconds
+Battle 4, Turn 2: Step time = 6.7792 seconds
+Battle 4, Turn 3: Step time = 3.4822 seconds
+Battle 4, Turn 4: Step time = 5.9356 seconds
+Battle 4, Turn 5: Step time = 7.9522 seconds
+Battle 4, Turn 6: Step time = 3.8618 seconds
+Battle 4, Turn 7: Step time = 6.2298 seconds
+Battle 4, Turn 8: Step time = 6.1218 seconds
+Battle 4, Turn 9: Step time = 3.4519 seconds
+Battle 4, Turn 10: Step time = 2.7524 seconds
+Battle 4 ended in 10 turns
+Battle 5, Turn 1: Step time = 5.2836 seconds
+Battle 5, Turn 2: Step time = 4.8038 seconds
+Battle 5, Turn 3: Step time = 3.7738 seconds
+Battle 5, Turn 4: Step time = 3.8946 seconds
+Battle 5 ended in 4 turns
+
+Final Results:
+Team 0 Wins: 3
+Team 1 Wins: 2
+Winner Team 0!
+Win Rate (Team 0): 60.00%
+Win Rate (Team 1): 40.00%
+Total Battles: 5
+Total Turns: 37
+Average Turns per Battle: 7.40

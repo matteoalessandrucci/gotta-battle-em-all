@@ -1,0 +1,56 @@
+Using Minimax Agent
+Starting 5 battles
+Battle 1, Turn 1: Step time = 4.9875 seconds
+Battle 1, Turn 2: Step time = 3.7875 seconds
+Battle 1, Turn 3: Step time = 4.2626 seconds
+Battle 1, Turn 4: Step time = 2.9778 seconds
+Battle 1, Turn 5: Step time = 1.8511 seconds
+Battle 1 ended in 5 turns
+Battle 2, Turn 1: Step time = 4.1318 seconds
+Battle 2, Turn 2: Step time = 2.7481 seconds
+Battle 2, Turn 3: Step time = 2.0702 seconds
+Battle 2, Turn 4: Step time = 1.7970 seconds
+Battle 2, Turn 5: Step time = 1.1712 seconds
+Battle 2, Turn 6: Step time = 1.3605 seconds
+Battle 2, Turn 7: Step time = 1.2420 seconds
+Battle 2, Turn 8: Step time = 2.5385 seconds
+Battle 2, Turn 9: Step time = 2.1953 seconds
+Battle 2 ended in 9 turns
+Battle 3, Turn 1: Step time = 1.5353 seconds
+Battle 3, Turn 2: Step time = 1.6743 seconds
+Battle 3, Turn 3: Step time = 2.2026 seconds
+Battle 3, Turn 4: Step time = 2.3934 seconds
+Battle 3, Turn 5: Step time = 3.0760 seconds
+Battle 3, Turn 6: Step time = 1.4642 seconds
+Battle 3 ended in 6 turns
+Battle 4, Turn 1: Step time = 2.4623 seconds
+Battle 4, Turn 2: Step time = 3.3376 seconds
+Battle 4, Turn 3: Step time = 3.7756 seconds
+Battle 4, Turn 4: Step time = 2.5374 seconds
+Battle 4, Turn 5: Step time = 2.6506 seconds
+Battle 4, Turn 6: Step time = 2.1642 seconds
+Battle 4, Turn 7: Step time = 2.2497 seconds
+Battle 4, Turn 8: Step time = 1.4965 seconds
+Battle 4, Turn 9: Step time = 2.2070 seconds
+Battle 4, Turn 10: Step time = 4.7880 seconds
+Battle 4, Turn 11: Step time = 4.3850 seconds
+Battle 4 ended in 11 turns
+Battle 5, Turn 1: Step time = 2.7930 seconds
+Battle 5, Turn 2: Step time = 2.0791 seconds
+Battle 5, Turn 3: Step time = 2.1350 seconds
+Battle 5, Turn 4: Step time = 2.7280 seconds
+Battle 5, Turn 5: Step time = 1.5900 seconds
+Battle 5, Turn 6: Step time = 0.9030 seconds
+Battle 5, Turn 7: Step time = 1.6300 seconds
+Battle 5, Turn 8: Step time = 1.7772 seconds
+Battle 5 ended in 8 turns
+
+Final Results:
+Team 0 Wins: 3
+Team 1 Wins: 2
+Winner Team 0!
+Win Rate (Team 0): 60.00%
+Win Rate (Team 1): 40.00%
+Total Battles: 5
+Total Turns: 39
+Average Turns per Battle: 7.80

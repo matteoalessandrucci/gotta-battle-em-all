@@ -1,0 +1,42 @@
+Using Monte Carlo Agent Agent
+Starting 5 battles
+Battle 1, Turn 1: Step time = 2.3750 seconds
+Battle 1, Turn 2: Step time = 2.6820 seconds
+Battle 1, Turn 3: Step time = 2.6640 seconds
+Battle 1, Turn 4: Step time = 2.5100 seconds
+Battle 1, Turn 5: Step time = 2.1600 seconds
+Battle 1, Turn 6: Step time = 2.5190 seconds
+Battle 1, Turn 7: Step time = 2.1840 seconds
+Battle 1, Turn 8: Step time = 2.2120 seconds
+Battle 1 ended in 8 turns
+Battle 2, Turn 1: Step time = 3.3680 seconds
+Battle 2, Turn 2: Step time = 2.7130 seconds
+Battle 2, Turn 3: Step time = 3.4830 seconds
+Battle 2, Turn 4: Step time = 2.5100 seconds
+Battle 2, Turn 5: Step time = 2.8170 seconds
+Battle 2, Turn 6: Step time = 2.3580 seconds
+Battle 2, Turn 7: Step time = 2.3010 seconds
+Battle 2, Turn 8: Step time = 2.2210 seconds
+Battle 2 ended in 8 turns
+Battle 3, Turn 1: Step time = 4.5950 seconds
+Battle 3, Turn 2: Step time = 4.3471 seconds
+Battle 3, Turn 3: Step time = 2.9593 seconds
+Battle 3, Turn 4: Step time = 3.6110 seconds
+Battle 3, Turn 5: Step time = 3.1520 seconds
+Battle 3, Turn 6: Step time = 3.2020 seconds
+Battle 3, Turn 7: Step time = 2.7830 seconds
+Battle 3, Turn 8: Step time = 2.8400 seconds
+Battle 3, Turn 9: Step time = 2.8960 seconds
+Battle 3, Turn 10: Step time = 2.2860 seconds
+Battle 3, Turn 11: Step time = 2.5330 seconds
+Battle 3 ended in 11 turns
+
+Final Results:
+Team 0 Wins: 0
+Team 1 Wins: 3
+Winner Team 1!
+Win Rate (Team 0): 0.00%
+Win Rate (Team 1): 100.00%
+Total Battles: 3
+Total Turns: 27
+Average Turns per Battle: 9.00

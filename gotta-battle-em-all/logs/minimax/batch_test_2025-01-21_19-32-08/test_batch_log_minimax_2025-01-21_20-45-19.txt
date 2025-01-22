@@ -1,0 +1,6 @@
+Batch Results (over 100 runs):
+Total Battles: 100
+Total Wins Team 0: 94
+Total Wins Team 1: 6
+Win Rate (Team 0): 94.00%
+Win Rate (Team 1): 6.00%
