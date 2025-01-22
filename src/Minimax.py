@@ -8,7 +8,7 @@ from vgc.behaviour import BattlePolicy
 
 
 class Minimax_agent(BattlePolicy):
-    def __init__(self, max_depth: int = 4):
+    def __init__(self, max_depth: int = 3):
         """
         Initializes the Minimax agent with a specified maximum search depth.
         :param max_depth: The maximum depth of the game tree to explore (default is 4).

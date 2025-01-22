@@ -4,8 +4,7 @@ import numpy as np
 from utils import MCTSNode, evaluate_game_state
 from vgc.behaviour.BattlePolicies import BattlePolicy
 from vgc.datatypes.Objects import GameState
-from vgc.engine.PkmBattleEnv import PkmTeam
-from vgc.datatypes.Types import PkmStat, PkmType
+from vgc.datatypes.Types import PkmType
 from vgc.datatypes.Constants import TYPE_CHART_MULTIPLIER
 
 
@@ -23,7 +22,7 @@ class MonteCarloAgent(BattlePolicy):
         exploration_constant: Current exploration constant, dynamically adapted during the game.
     """
 
-    def _init_(self, max_simulations: int = 50, min_simulations: int = 30, 
+    def __init__(self, max_simulations: int = 50, min_simulations: int = 30, 
                  min_exploration_constant: float = 1.2, max_exploration_constant: float = 1.4,
                  time_limit: float = None):
         """

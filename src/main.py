@@ -9,8 +9,7 @@ from MCTSxMinimax import MCTSxMinimax
 from MCTS import MonteCarloAgent
 sys.path.append(os.path.join(sys.path[0], '..'))
 
-from vgc.datatypes.Objects import PkmTeam
-from vgc.behaviour.BattlePolicies import RandomPlayer, Minimax
+from vgc.behaviour.BattlePolicies import RandomPlayer
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
 
@@ -179,8 +178,8 @@ if __name__ == "__main__":
     # Static arguments
     n_battles = 5
     use_ux = False
-    test_batch = True
-    batch_runs = 10
+    test_batch = False
+    batch_runs = 100
 
     if test_batch:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
