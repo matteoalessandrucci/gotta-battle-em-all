@@ -2,7 +2,7 @@ from vgc.datatypes.Objects import PkmTeam
 from vgc.behaviour.BattlePolicies import RandomPlayer, GUIPlayer, Minimax
 from vgc.engine.PkmBattleEnv import PkmBattleEnv
 from vgc.util.generator.PkmTeamGenerators import RandomTeamGenerator
-from Agents import RandomAgent, MonteCarloAgent, MonteCarloMinimaxAgent, MinimaxWithAlphaBeta
+from Agents import RandomAgent, MonteCarloAgent, MinimaxWithAlphaBeta
 from multiprocessing.connection import Client
 
 # OK
@@ -61,7 +61,7 @@ team0 = gen.get_team().get_battle_team([0, 1, 2])
 team1 = gen.get_team().get_battle_team([0, 1, 2])
 
 # Crea gli agenti
-agent0, agent1 = RandomAgent(), MonteCarloMinimaxAgent()
+agent0, agent1 = MonteCarloAgent(simulations=30), RandomAgent()
 
 # Definisci l'indirizzo di connessione
 address = ('localhost', 6000)
@@ -88,8 +88,8 @@ while battle < n_battles:
         env.render(mode='ux')  # renderizza l'andamento della battaglia
     
     # Dopo la battaglia, memorizza il risultato
-    if env.winner:
-        print(f"Battaglia {battle + 1}: Vittoria! (Squadra {env.winner})")
+    if env.winner == 0:
+        print(f"Battaglia {battle + 1}: Vittoria!")
         vittorie+=1
     else:
         print(f"Battaglia {battle + 1}: Sconfitta :c")
