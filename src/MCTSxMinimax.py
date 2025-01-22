@@ -13,15 +13,7 @@ from vgc.behaviour.BattlePolicies import BattlePolicy
 from vgc.datatypes.Objects import GameState
 
 class MCTSxMinimax(BattlePolicy):
-    def __init__(
-        self,
-        n_moves: int = 4,
-        n_switches: int = 2,
-        max_depth: int = 2,
-        simulations: int = 50,
-        exploration_constant: float = 1.4,
-        mcts_depth: int = 2,
-    ):
+    def __init__(self, n_moves: int = 4, n_switches: int = 2, max_depth: int = 2, simulations: int = 50, exploration_constant: float = 1.4, mcts_depth: int = 2):
         super().__init__()
         self.n_moves = n_moves
         self.n_switches = n_switches
