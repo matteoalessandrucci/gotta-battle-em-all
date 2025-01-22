@@ -4,7 +4,7 @@ import time
 from math import ceil
 from datetime import datetime
 from multiprocessing.connection import Client
-from Minimax import MinimaxNodes_Agent
+from Minimax import Minimax_agent
 from MCTSxMinimax import MCTSxMinimax
 from MCTS import MonteCarloAgent
 
@@ -42,7 +42,7 @@ class BattleSimulator:
         elif self.agent_type == 2:
             self.agent0 = MCTSxMinimax()
         else:
-            self.agent0 = MinimaxNodes_Agent()
+            self.agent0 = Minimax_agent()
 
         self.agent1 = RandomPlayer()
         self.env = self.initialize_environment()
@@ -203,7 +203,7 @@ if __name__ == "__main__":
     n_battles = 5
     use_ux = False
     test_batch = True
-    batch_runs = 100
+    batch_runs = 10
 
     if test_batch:
         # If the --test-batch flag is provided, batch testing is executed:

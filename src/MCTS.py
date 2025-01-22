@@ -1,33 +1,14 @@
 from typing import List
 import numpy as np
-from collections import namedtuple
 from copy import deepcopy
 import os
 import sys
-from utils import MCTSNode, game_state_eval
+from utils import MCTSNode, evaluate_game_state_MCTS
 
 sys.path.append(os.path.join(sys.path[0], ".."))
 
 from vgc.behaviour.BattlePolicies import BattlePolicy
 from vgc.datatypes.Objects import GameState, PkmTeam
-
-class MCTSNode:
-    def __init__(self, g=None, parent=None, action=None):
-        self.g = g  # GameState
-        self.parent = parent  # Parent node
-        self.children = []  # Child nodes
-        self.action = action  # Action that led to this node
-        self.visits = 0  # Number of visits
-        self.value = 0.0  # Cumulative reward
-
-class MCTSNode:
-    def __init__(self, g=None, parent=None, action=None):
-        self.g = g  # GameState
-        self.parent = parent  # Parent node
-        self.children = []  # Child nodes
-        self.action = action  # Action that led to this node
-        self.visits = 0  # Number of visits
-        self.value = 0.0  # Cumulative reward
 
 
 class MonteCarloAgent(BattlePolicy):
