@@ -22,8 +22,8 @@ class MCTSxMinimax(BattlePolicy):
         max_depth: int = 2,
 
         mcts_depth: int = 2,
-        max_simulations: int = 50, min_simulations: int = 30, 
-                 min_exploration_constant: float = 1.2, max_exploration_constant: float = 1.5,
+        max_simulations: int = 100, min_simulations: int = 50, 
+                 min_exploration_constant: float = 1.4, max_exploration_constant: float = 1.7,
                  time_limit: float = None
     ):
         super().__init__()
